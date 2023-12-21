@@ -1,11 +1,11 @@
 import "@/styles/globals.css";
 
-import { Inter } from "next/font/google";
-import { cookies } from "next/headers";
+import { Inter as FontSans } from "next/font/google";
+import { Providers } from "./providers";
+import { cn } from "@/utils/styles";
 
-import { TRPCReactProvider } from "@/trpc/react";
-
-const inter = Inter({
+// TODO(kasutu): change font to [future forces]
+export const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
 });
@@ -23,10 +23,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`font-sans ${inter.variable}`}>
-        <TRPCReactProvider cookies={cookies().toString()}>
-          {children}
-        </TRPCReactProvider>
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          fontSans.variable,
+        )}
+      >
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
