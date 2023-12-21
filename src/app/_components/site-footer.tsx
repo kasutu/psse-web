@@ -22,8 +22,8 @@ export function SiteFooter() {
             className="font-medium underline underline-offset-4"
           >
             {siteConfig.organization}
-          </a>
-          .
+          </a>{" "}
+          ✨
         </p>
       </div>
     </footer>

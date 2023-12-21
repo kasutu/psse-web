@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { siteConfig } from "@/config/site";
 import { Icons } from "@/components/icons";
 import { cn } from "@/utils/styles";
+import { navConfig } from "@/config/nav";
 
 export function MainNav() {
   const pathname = usePathname();
@@ -14,62 +15,24 @@ export function MainNav() {
   return (
     <div className="mr-4 hidden md:flex">
       <Link href="/" className="mr-6 flex items-center space-x-2">
-        <Icons.logo className="h-6 w-6" />
-        <span className="hidden font-bold sm:inline-block">
+        <Icons.logo className="h-14 w-14" />
+        <span className="hidden text-2xl font-bold uppercase sm:inline-block">
           {siteConfig.name}
         </span>
       </Link>
-      <nav className="flex items-center space-x-6 text-sm font-medium">
-        <Link
-          href="/docs"
-          className={cn(
-            "transition-colors hover:text-foreground/80",
-            pathname === "/docs" ? "text-foreground" : "text-foreground/60",
-          )}
-        >
-          Documentation
-        </Link>
-        <Link
-          href="/docs/components"
-          className={cn(
-            "transition-colors hover:text-foreground/80",
-            pathname?.startsWith("/docs/components")
-              ? "text-foreground"
-              : "text-foreground/60",
-          )}
-        >
-          Components
-        </Link>
-        <Link
-          href="/themes"
-          className={cn(
-            "transition-colors hover:text-foreground/80",
-            pathname?.startsWith("/themes")
-              ? "text-foreground"
-              : "text-foreground/60",
-          )}
-        >
-          Themes
-        </Link>
-        <Link
-          href="/examples"
-          className={cn(
-            "transition-colors hover:text-foreground/80",
-            pathname?.startsWith("/examples")
-              ? "text-foreground"
-              : "text-foreground/60",
-          )}
-        >
-          Examples
-        </Link>
-        <Link
-          href={siteConfig.links.github}
-          className={cn(
-            "hidden text-foreground/60 transition-colors hover:text-foreground/80 lg:block",
-          )}
-        >
-          GitHub
-        </Link>
+      <nav className="text-md flex items-center space-x-6 font-medium">
+        {navConfig.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={cn(
+              "font-semibold capitalize transition-colors hover:text-foreground/80",
+              pathname === item.href ? "text-foreground" : "text-foreground/60",
+            )}
+          >
+            {item.title}
+          </Link>
+        ))}
       </nav>
     </div>
   );
