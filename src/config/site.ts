@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "ninjas",
+  name: "psse",
   author: "kasutu",
   organization: "Philippine Society of Software Engineers",
   url: "https://ui.shadcn.com",
