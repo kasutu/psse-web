@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "dojo",
+  name: "ninjas",
   author: "kasutu",
   organization: "Philippine Society of Software Engineers",
   url: "https://ui.shadcn.com",
@@ -9,6 +9,8 @@ export const siteConfig = {
     twitter: "https://twitter.com/dev_kasutu",
     github: "https://github.com/kasutu",
     facebook: "https://www.facebook.com/the.psse",
+    twitch: "#",
+    discord: "#",
   },
 };
 

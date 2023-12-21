@@ -14,12 +14,12 @@ export function MainNav() {
   return (
     <div className="mr-4 hidden md:flex">
       <Link href="/" className="mr-6 flex items-center space-x-2">
-        <Icons.logo className="h-6 w-6" />
-        <span className="hidden font-bold sm:inline-block">
+        <Icons.logo className="h-8 w-8" />
+        <span className="hidden text-2xl font-bold sm:inline-block">
           {siteConfig.name}
         </span>
       </Link>
-      <nav className="flex items-center space-x-6 text-sm font-medium">
+      <nav className="text-md flex items-center space-x-6 font-medium">
         <Link
           href="/docs"
           className={cn(
@@ -27,48 +27,25 @@ export function MainNav() {
             pathname === "/docs" ? "text-foreground" : "text-foreground/60",
           )}
         >
-          Documentation
+          schedule
         </Link>
         <Link
-          href="/docs/components"
+          href="/docs"
           className={cn(
             "transition-colors hover:text-foreground/80",
-            pathname?.startsWith("/docs/components")
-              ? "text-foreground"
-              : "text-foreground/60",
+            pathname === "/docs" ? "text-foreground" : "text-foreground/60",
           )}
         >
-          Components
+          watch
         </Link>
         <Link
-          href="/themes"
+          href="/docs"
           className={cn(
             "transition-colors hover:text-foreground/80",
-            pathname?.startsWith("/themes")
-              ? "text-foreground"
-              : "text-foreground/60",
+            pathname === "/docs" ? "text-foreground" : "text-foreground/60",
           )}
         >
-          Themes
-        </Link>
-        <Link
-          href="/examples"
-          className={cn(
-            "transition-colors hover:text-foreground/80",
-            pathname?.startsWith("/examples")
-              ? "text-foreground"
-              : "text-foreground/60",
-          )}
-        >
-          Examples
-        </Link>
-        <Link
-          href={siteConfig.links.github}
-          className={cn(
-            "hidden text-foreground/60 transition-colors hover:text-foreground/80 lg:block",
-          )}
-        >
-          GitHub
+          participate
         </Link>
       </nav>
     </div>
