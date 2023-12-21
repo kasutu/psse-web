@@ -2,20 +2,66 @@ import "@/styles/globals.css";
 
 import { TRPCReactProvider } from "@/trpc/react";
 import { cookies } from "next/headers";
-import { Inter as FontSans } from "next/font/google";
 import Providers from "./providers";
 import { cn } from "@/utils/styles";
+import { SiteHeader } from "@/components/site-header";
+import { siteConfig } from "@/config/site";
+import { Metadata } from "next/types";
+import { fontSans } from "@/lib/fonts";
 
-// TODO(kasutu): change font to [future forces]
-export const fontSans = FontSans({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
-
-export const metadata = {
-  title: "Ninjas Esports",
-  description: "Play, build, commit, and enjoy with PSSE Ninjas.",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
+export const metadata: Metadata = {
+  title: {
+    default: siteConfig.name,
+    template: `%s - ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  keywords: [
+    "Next.js",
+    "React",
+    "Tailwind CSS",
+    "Server Components",
+    "Radix UI",
+  ],
+  authors: [
+    {
+      name: "kasutu",
+      url: "https://jeromecabugwason.com",
+    },
+  ],
+  creator: "kasutu",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ],
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteConfig.url,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    siteName: siteConfig.name,
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: 1200,
+        height: 630,
+        alt: siteConfig.name,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: [siteConfig.ogImage],
+    creator: "@dev_kasutu",
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon-16x16.png",
+    apple: "/apple-touch-icon.png",
+  },
+  manifest: `${siteConfig.url}/site.webmanifest`,
 };
 
 export default function RootLayout({
@@ -32,7 +78,12 @@ export default function RootLayout({
         )}
       >
         <TRPCReactProvider cookies={cookies().toString()}>
-          <Providers>{children}</Providers>
+          <Providers>
+            <div className="relative flex min-h-screen flex-col">
+              <SiteHeader />
+              {children}
+            </div>
+          </Providers>
         </TRPCReactProvider>
       </body>
     </html>

@@ -1,3 +1,7 @@
-export default async function Hero() {
-  return <h1>hello</h1>;
+export default async function HeroPage() {
+  return (
+    <main>
+      <h1>Hello</h1>
+    </main>
+  );
 }
