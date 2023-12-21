@@ -8,6 +8,7 @@ import { SiteHeader } from "@/components/site-header";
 import { siteConfig } from "@/config/site";
 import { Metadata } from "next/types";
 import { fontSans } from "@/lib/fonts";
+import { SiteFooter } from "./_components/site-footer";
 
 export const metadata: Metadata = {
   title: {
@@ -61,7 +62,6 @@ export const metadata: Metadata = {
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
-  manifest: `${siteConfig.url}/site.webmanifest`,
 };
 
 export default function RootLayout({
@@ -82,6 +82,7 @@ export default function RootLayout({
             <div className="relative flex min-h-screen flex-col">
               <SiteHeader />
               {children}
+              <SiteFooter />
             </div>
           </Providers>
         </TRPCReactProvider>
