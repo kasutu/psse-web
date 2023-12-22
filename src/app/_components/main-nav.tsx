@@ -16,9 +16,6 @@ export function MainNav() {
     <div className="mr-4 hidden md:flex">
       <Link href="/" className="mr-6 flex items-center space-x-2">
         <Icons.logo className="h-14 w-14" />
-        <span className="hidden text-2xl font-bold uppercase sm:inline-block">
-          {siteConfig.name}
-        </span>
       </Link>
       <nav className="text-md flex items-center space-x-6 font-medium">
         {navConfig.map((item) => (
