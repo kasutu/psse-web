@@ -16,7 +16,7 @@ const imgUrl =
 export default function PollPage() {
   return (
     <div className="container">
-      <ContentHeader className="relative space-y-2 py- md:pt-4 lg:pt-8">
+      <ContentHeader className="relative space-y-2 py-3 md:py-4 lg:py-8">
         <ContentHeaderImage src={imgUrl} />
         <ContentHeaderHeading>
           Your Vote Counts! Decide the Next Gaming Challenge!
