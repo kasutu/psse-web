@@ -2,19 +2,20 @@
 
 import * as React from "react";
 import Link, { LinkProps } from "next/link";
-import { useRouter } from "next/navigation";
-import { ViewVerticalIcon } from "@radix-ui/react-icons";
+import { usePathname, useRouter } from "next/navigation";
 
 import { siteConfig } from "@/config/site";
-import { docsConfig } from "@/config/docs";
 import { Icons } from "@/components/icons";
 import { cn } from "@/utils/styles";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/sheet";
 import { ScrollArea } from "@/components/scroll-area";
 import { Button } from "@/components/button";
+import { Sidebar } from "lucide-react";
+import { navConfig } from "@/config/nav";
 
 export function MobileNav() {
   const [open, setOpen] = React.useState(false);
+  const pathname = usePathname();
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -23,7 +24,7 @@ export function MobileNav() {
           variant="ghost"
           className="mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
         >
-          <ViewVerticalIcon className="h-5 w-5" />
+          <Sidebar className="h-5 w-5" />
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
@@ -33,47 +34,30 @@ export function MobileNav() {
           className="flex items-center"
           onOpenChange={setOpen}
         >
-          <Icons.logo className="mr-2 h-4 w-4" />
-          <span className="font-bold">{siteConfig.name}</span>
+          <Icons.logo className="mr-2 h-9 w-9" />
+          <span className="text-2xl font-bold">{siteConfig.name}</span>
         </MobileLink>
         <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">
           <div className="flex flex-col space-y-3">
-            {docsConfig.mainNav?.map(
+            {navConfig.map(
               (item) =>
                 item.href && (
                   <MobileLink
                     key={item.href}
                     href={item.href}
                     onOpenChange={setOpen}
+                    className={cn(
+                      "font-semibold capitalize transition-colors hover:text-primary/80",
+                      //  match /value/[id] splits the pathname by / and compare the first part
+                      pathname.split("/")[1] === item.href.split("/")[1]
+                        ? "text-primary"
+                        : "text-foreground/60",
+                    )}
                   >
                     {item.title}
                   </MobileLink>
                 ),
             )}
-          </div>
-          <div className="flex flex-col space-y-2">
-            {docsConfig.sidebarNav.map((item, index) => (
-              <div key={index} className="flex flex-col space-y-3 pt-6">
-                <h4 className="font-medium">{item.title}</h4>
-                {item?.items?.length &&
-                  item.items.map((item) => (
-                    <React.Fragment key={item.href}>
-                      {!item.disabled &&
-                        (item.href ? (
-                          <MobileLink
-                            href={item.href}
-                            onOpenChange={setOpen}
-                            className="text-muted-foreground"
-                          >
-                            {item.title}
-                          </MobileLink>
-                        ) : (
-                          item.title
-                        ))}
-                    </React.Fragment>
-                  ))}
-              </div>
-            ))}
           </div>
         </ScrollArea>
       </SheetContent>
