@@ -26,8 +26,11 @@ export function MainNav() {
             key={item.href}
             href={item.href}
             className={cn(
-              "font-semibold capitalize transition-colors hover:text-foreground/80",
-              pathname === item.href ? "text-foreground" : "text-foreground/60",
+              "font-semibold capitalize transition-colors hover:text-primary/80",
+              //  match /value/[id] splits the pathname by / and compare the first part
+              pathname.split("/")[1] === item.href.split("/")[1]
+                ? "text-primary"
+                : "text-foreground/60",
             )}
           >
             {item.title}
