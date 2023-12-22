@@ -2,6 +2,7 @@
 
 import { ThemeProvider } from "next-themes";
 import { ClerkProvider } from "@clerk/nextjs";
+import { dark, shadesOfPurple } from "@clerk/themes/dist/themes/src/";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -11,7 +12,14 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       enableSystem
       disableTransitionOnChange
     >
-      <ClerkProvider>{children}</ClerkProvider>
+      <ClerkProvider
+        appearance={{
+          baseTheme: dark,
+          variables: { colorPrimary: "blue" },
+        }}
+      >
+        {children}
+      </ClerkProvider>
     </ThemeProvider>
   );
 }
