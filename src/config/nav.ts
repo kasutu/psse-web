@@ -1,6 +1,7 @@
 export const navConfig: { title: string; href: string }[] = [
-  { title: "events", href: "#" },
-  { title: "watch", href: "#" },
+  { title: "about", href: "/about" },
+  { title: "events", href: "/events" },
   { title: "engage", href: "/engage" },
-  { title: "drops", href: "#" },
+  { title: "shop", href: "/shop" },
+  { title: "watch", href: "/watch" },
 ];

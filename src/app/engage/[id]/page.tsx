@@ -15,7 +15,7 @@ export default function PollPage() {
           Your Vote Counts! Decide the Next Gaming Challenge!
         </PageHeaderHeading>
         <PageHeaderDescription>
-          Join the <strong>Ninjas Esports Tournament</strong>! Cast your vote
+          Join the <strong>2024 PSSE Esports Tournament</strong>! Cast your vote
           and help us select the next big game for the competition.
         </PageHeaderDescription>
       </PageHeader>

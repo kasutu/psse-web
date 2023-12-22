@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Option, usePoll } from "@/components/hooks/usePoll";
 import {
   Card,
@@ -11,8 +11,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { cn } from "@/utils/styles";
-import { useVisitorSession } from "./hooks/useVisitorSession";
-import { useToast } from "./ui/use-toast";
+import { Countdown } from "./countdown";
+import { Link, Share2 } from "lucide-react";
+import { Button } from "./ui/button";
 
 type CardProps = React.ComponentProps<typeof Card>;
 
@@ -31,90 +32,54 @@ const initialOptions: Option[] = [
 export default function PollCard({ className, ...props }: CardProps) {
   const { options, setOptions } = usePoll([...initialOptions]);
   const [maxVotes, setMaxVotes] = useState(10); // Set initial max votes to 10
-  const { session, editSession } = useVisitorSession();
-  const { toast } = useToast();
 
-  useEffect(() => {
-    if (!session?.voting) {
-      editSession({
-        uid: "someid",
-        voting: {
-          isAllowed: true,
-        },
-      });
-    }
-  }, []);
+  const castVote = (optionId: string) => {
+    const updatedOptions = options.map((currentOption) => {
+      if (currentOption.id === optionId && !currentOption.voted) {
+        return {
+          ...currentOption,
+          votes: currentOption.votes + 1,
+          voted: true,
+        };
+      }
+      return currentOption;
+    });
 
+    setOptions(updatedOptions);
+  };
 
-    const updateVoteCount = (option: {
-      percentage?: number;
-      text: any;
-      votes?: number;
-      voted?: boolean;
-    }) => {
-      // If the user has already voted for this option, revert the vote
+  const retractVote = (optionId: string) => {
+    const updatedOptions = options.map((currentOption) => {
+      if (currentOption.id === optionId && currentOption.voted) {
+        return {
+          ...currentOption,
+          votes: currentOption.votes - 1,
+          voted: false,
+        };
+      }
+      return currentOption;
+    });
+
+    setOptions(updatedOptions);
+  };
+
+  const updateVoteCount = (optionId: string) => {
+    const option = options.find((option) => option.id === optionId);
+    if (option) {
       if (option.voted) {
-        const updatedOptions = options.map((currentOption) => {
-          if (currentOption.text === option.text) {
-            return { ...currentOption, votes: currentOption.votes - 1, voted: false };
-          }
-          return currentOption;
-        });
-
-        setOptions(updatedOptions);
-
-        // Decrement the number of votes casted
-        editSession({
-          voting: {
-            ...session?.voting,
-            votesCasted: session?.voting?.votesCasted ?? 0 - 1,
-          },
-        });
-
-        return;
+        retractVote(optionId);
+      } else {
+        castVote(optionId);
       }
-
-      // If the user has no votes left, return early
-      if (!(session?.voting?.isAllowed) || (session.voting.votesCasted ?? 0) >= maxVotes) {
-        toast({
-          description: "You have no votes left",
-        });
-
-        return;
-      }
-
-      const updatedOptions = options.map((currentOption) => {
-        if (currentOption.text === option.text) {
-          const newVotes = currentOption.votes + 1;
-          if (newVotes >= maxVotes) {
-            setMaxVotes(newVotes + 1); // Increment max votes if an option reaches it
-          }
-          return { ...currentOption, votes: newVotes, voted: true };
-        }
-        return currentOption;
-      });
-
-      setOptions(updatedOptions);
-
-      // Increment the number of votes casted
-      editSession({
-        voting: {
-          ...session.voting,
-          votesCasted: (session.voting.votesCasted ?? 0) + 1,
-        },
-      });
-    };
-
-  const totalVotes = options.reduce((total, option) => total + option.votes, 0);
+    }
+  };
 
   return (
     <Card className={cn("w-full sm:w-[580px]", className)} {...props}>
       <CardHeader>
         <CardTitle>Choose your game</CardTitle>
         <CardDescription>
-          {session?.voting?.isAllowed
-            ? `You have ${options.length - totalVotes} Votes Left`
-            : "You have no votes left"}
+          Select the game you want to play or watch in the upcoming tournament.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -123,29 +88,31 @@ export default function PollCard({ className, ...props }: CardProps) {
             <div
               key={index}
               className="mb-2"
-              onClick={() => updateVoteCount(option)}
+              onClick={() => updateVoteCount(option.id)}
             >
-              <div className="relative flex rounded-md bg-secondary">
-                <div
-                  style={{
-                    width: `${Math.min((option.votes / maxVotes) * 100, 100)}%`,
-                  }}
-                  className="absolute flex h-full rounded-md bg-primary transition-all duration-500"
-                />
-                <div className="z-10 flex w-full select-none flex-row place-content-between p-2 font-semibold">
+              <div className="relative flex w-full overflow-hidden rounded-lg bg-clip-border outline outline-1 outline-secondary">
+                <div className="z-10 flex w-full select-none flex-row place-content-between px-2 py-3 text-sm font-bold">
                   <span>{option.text}</span>
                   <span>{option.percentage}%</span>
                 </div>
+                <div
+                  style={{
+                    width: `${option.percentage}%`,
+                  }}
+                  className="absolute flex h-full bg-primary transition-all duration-500"
+                />
               </div>
             </div>
           ))}
         </div>
       </CardContent>
       <CardFooter>
-        <div className="flex select-none flex-col">
-          <span className="font-semibold">Total Votes</span>
-          <span className="text-3xl font-bold">{totalVotes}</span>
-        </div>
+        <CardDescription className="flex w-full flex-row place-content-between">
+          <Countdown utc="2023-12-31T00:00:00Z" />
+          <Button variant={"ghost"} onClick={() => console.log("clicked")}>
+            <Link className="h-5 w-auto text-primary" />
+          </Button>
+        </CardDescription>
       </CardFooter>
     </Card>
   );
