@@ -39,6 +39,7 @@ function ActionCard() {
       <Card>
         <CardHeader className="grid w-[690px] grid-cols-3 items-start gap-4 space-y-0">
           <div className="col-span-2 space-y-3">
+            {/* User avatar */}
             <div className="flex items-center space-x-4">
               <Avatar className="h-7 w-auto">
                 <AvatarImage

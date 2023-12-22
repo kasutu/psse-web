@@ -75,7 +75,7 @@ export default function PollCard({ className, ...props }: CardProps) {
   };
 
   return (
-    <Card className={cn("w-full sm:w-[580px]", className)} {...props}>
+    <Card className={cn("sm:w-full lg:w-[580px]", className)} {...props}>
       <CardHeader>
         <CardTitle>Choose your game</CardTitle>
         <CardDescription>
@@ -90,8 +90,8 @@ export default function PollCard({ className, ...props }: CardProps) {
               className="mb-2"
               onClick={() => updateVoteCount(option.id)}
             >
-              <div className="relative flex w-full overflow-hidden rounded-lg bg-clip-border outline outline-1 outline-secondary">
-                <div className="z-10 flex w-full select-none flex-row place-content-between px-2 py-3 text-sm font-bold">
+              <div className="relative flex w-full overflow-hidden rounded-lg  bg-clip-border outline outline-1 outline-secondary">
+                <div className="z-10 flex w-full select-none flex-row place-content-between bg-transparent bg-clip-text px-2 py-3 text-sm font-bold ">
                   <span>{option.text}</span>
                   <span>{option.percentage}%</span>
                 </div>
@@ -99,7 +99,7 @@ export default function PollCard({ className, ...props }: CardProps) {
                   style={{
                     width: `${option.percentage}%`,
                   }}
-                  className="absolute flex h-full bg-primary transition-all duration-500"
+                  className="absolute flex h-full bg-primary/50 transition-all duration-500 dark:bg-primary "
                 />
               </div>
             </div>
