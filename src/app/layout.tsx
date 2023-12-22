@@ -9,6 +9,7 @@ import { siteConfig } from "@/config/site";
 import { Metadata } from "next/types";
 import { fontSans } from "@/lib/fonts";
 import { SiteFooter } from "./_components/site-footer";
+import { useVisitorSession } from "@/components/hooks/useVisitorSession";
 
 export const metadata: Metadata = {
   title: {
@@ -30,10 +31,10 @@ export const metadata: Metadata = {
     },
   ],
   creator: "kasutu",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
+  // themeColor: [
+  //   { media: "(prefers-color-scheme: light)", color: "white" },
+  //   { media: "(prefers-color-scheme: dark)", color: "black" },
+  // ],
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -81,7 +82,7 @@ export default function RootLayout({
           <Providers>
             <div className="relative flex min-h-screen flex-col">
               <SiteHeader />
-              {children}
+              <main className="container relative">{children}</main>
               <SiteFooter />
             </div>
           </Providers>
