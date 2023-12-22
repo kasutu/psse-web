@@ -2,10 +2,12 @@
 
 import { useState } from "react";
 
-interface Option {
+export type Option = {
+  id: string;
   text: string;
   votes: number;
-}
+  voted: boolean;
+};
 
 export function usePoll(initialOptions: Option[] | (() => Option[])) {
   const [options, setOptions] = useState<Option[]>(initialOptions);

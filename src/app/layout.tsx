@@ -9,6 +9,7 @@ import { siteConfig } from "@/config/site";
 import { Metadata } from "next/types";
 import { fontSans } from "@/lib/fonts";
 import { SiteFooter } from "./_components/site-footer";
+import { useVisitorSession } from "@/components/hooks/useVisitorSession";
 
 export const metadata: Metadata = {
   title: {
