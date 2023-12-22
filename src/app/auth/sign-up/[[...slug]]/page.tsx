@@ -17,7 +17,7 @@ export default function Page() {
         router.back();
       }}
     >
-      <DialogContent className="rounded-lg bg-primary-foreground">
+      <DialogContent className="place-content-center rounded-lg bg-primary-foreground">
         <SignUp />
       </DialogContent>
     </Dialog>

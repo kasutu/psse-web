@@ -1,8 +1,8 @@
 "use client";
 
 import { ThemeProvider } from "next-themes";
-import { ClerkProvider } from "@clerk/nextjs";
-import { dark, shadesOfPurple } from "@clerk/themes/dist/themes/src/";
+import { ClerkLoaded, ClerkProvider } from "@clerk/nextjs";
+import { dark } from "@clerk/themes/dist/themes/src/";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -13,12 +13,14 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       disableTransitionOnChange
     >
       <ClerkProvider
+        afterSignInUrl="/"
+        afterSignUpUrl="/"
         appearance={{
           baseTheme: dark,
           variables: { colorPrimary: "blue" },
         }}
       >
-        {children}
+        <ClerkLoaded>{children}</ClerkLoaded>
       </ClerkProvider>
     </ThemeProvider>
   );
