@@ -107,8 +107,11 @@ export default function PollCard({ className, ...props }: CardProps) {
         </div>
       </CardContent>
       <CardFooter>
-        <CardDescription className="flex w-full flex-row place-content-between">
-          <Countdown utc="2023-12-31T00:00:00Z" />
+        <CardDescription className="flex h-full w-full flex-row place-content-between">
+          <Countdown
+            className="flex grow flex-row items-center"
+            utc="2023-12-31T00:00:00Z"
+          />
           <Button variant={"ghost"} onClick={() => console.log("clicked")}>
             <Link className="h-5 w-auto text-primary" />
           </Button>
